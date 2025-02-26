@@ -37,8 +37,7 @@ function updateExpenseList(){
 }
 
 function updateTotalAmount(){
-    totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    document.getElementById("total-amount").textContent = totalAmount.toFixed(2);
+    totalAmount.textContent = totalAmount.toFixed(2);
 }
 
 function deleteExpense(index){
