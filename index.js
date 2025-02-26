@@ -9,12 +9,20 @@ if (name === '' || isNaN(amount) || amount <= 0){
 alert('please enter a valied name or amount');
 return;
 }
-const expense = {name, amount};
+// const expense = {name, amount};
+// expenses.push(expense);
+const expense = {
+    id: Date.now(),
+    name: name,
+    amount: amount
+  };
 expenses.push(expense);
+totalAmount += amount;
+
 
 updateExpenseList();
 updateTotalAmount();
-// clear input fields
+
 document.getElementById("expense-name").value = '';
 document.getElementById("expense-amount").value = '';
 
@@ -37,7 +45,8 @@ function updateExpenseList(){
 }
 
 function updateTotalAmount(){
-    totalAmount.textContent = totalAmount.toFixed(2);
+totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+ document.getElementById("total-amount").textContent = totalAmount.toFixed(2);
 }
 
 function deleteExpense(index){
