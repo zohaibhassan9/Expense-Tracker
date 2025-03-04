@@ -6,24 +6,20 @@
     <title>Expense Tracker</title>
 </head>
 <body>
-    
-<div class="container">
-<h2>Expense Tracker</h2>
 
-<div class="input-field" style="line-height: 1.8;">
+<div class="expense-container">
+
+<h2>Expense Calculator</h2>
+
+<form id="expense-form" style="line-height: 1.8;">
 <input type="text" id="expense-name" placeholder="Expense Name"> <br>
-<input type="number" id="expense-amount" placeholder="Expense Amount"> <br>
-<button onclick="addExpense()">Add Expense</button>
-</div>
+<input type="text" id="expense-amount" placeholder="Expanse Amount"> <br>
+<button onclick = "addExpense(event);">Add Expense</button>
+</form>
 
-<div class="expenses">
-<h2>Expense List</h2>
+<h2>Expenses:</h2>
 <ul id="expense-list"></ul>
-</div>
-
-<div class="total">
-<h2>Total: $<span id="total-amount">0</span></h2>
-</div>
+<h3>Total: $ <span id="total-amount">0</span></h3>
 
 </div>
 

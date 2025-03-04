@@ -1,140 +1,69 @@
+
+const expenseForm = document.getElementById('expense-form');
+const expenseAmount = document.getElementById('expense-amount');
+const expenseName = document.getElementById('expense-name');
+const expenseList = document.getElementById('expense-list');
+const totalAmountValue = document.getElementById('total-amount');
 let expenses = [];
 let totalAmount = 0;
+function addExpense(event){
+event.preventDefault();
 
-function addExpense(){
-const name = document.getElementById("expense-name").value.trim();
-const amount =parseFloat(document.getElementById("expense-amount").value.trim());
+const name = expenseName.value.trim();
+const amount =parseFloat(expenseAmount.value.trim());
 
-if (name === '' || isNaN(amount) || amount <= 0){
-alert('please enter a valied name or amount');
-return;
+if(name === '' || isNaN(amount) || amount < 0){
+ alert("Please enter a valid value.");
+ return;
 }
-// const expense = {name, amount};
-// expenses.push(expense);
+
 const expense = {
-    id: Date.now(),
-    name: name,
-    amount: amount
-  };
+id: Date.now(),
+name: name,
+amount: amount,
+};
+
 expenses.push(expense);
 totalAmount += amount;
 
-
 updateExpenseList();
 updateTotalAmount();
 
-document.getElementById("expense-name").value = '';
-document.getElementById("expense-amount").value = '';
+
+expenseName.value = '';
+expenseName.value = '';
+// or
+expenseName.value = '';
+expenseAmount.value = '';
 
 }
 
-
 function updateExpenseList(){
-    const expenseList = document.getElementById("expense-list");
-    expenseList.innerHTML = '';
+expenseList.innerHTML = '';
+    
+expenses.forEach((expense) => { // Use expense object directly
+    const li = document.createElement('li');
+    li.innerHTML = `
+        ${expense.name}: $${expense.amount.toFixed(2)}
+        <button onclick="removeExpense(${expense.id})">Delete</button>
+    `;
+    expenseList.appendChild(li);
+});
 
-    expenses.forEach((expense, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-       <span>${expense.name}</span>
-       <span>${expense.amount.toFixed(2)}</span>
-       <button onclick = "deleteExpense(${index})">Delete</button>
-        `;
-        expenseList.appendChild(li);
-    });
 }
 
 function updateTotalAmount(){
-totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
- document.getElementById("total-amount").textContent = totalAmount.toFixed(2);
+    const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0); // Ensure totalAmount is updated
+    totalAmountValue.textContent = totalAmount.toFixed(2);
+
 }
-
-function deleteExpense(index){
-expenses.splice(index, 1);
-updateExpenseList();
-updateTotalAmount();
-}
-
+function deleteExpense(id) {
+    expenses = expenses.filter((expense) => expense.id !== id);
+    updateExpenseList();
+    updateTotalAmount()
+  }
 
 
+expenseForm.addEventListener('submit', addExpense);
 
 
-
-
-
-// DOM Elements
-// const expenseForm = document.getElementById('expenseForm');
-// const expenseName = document.getElementById('expenseName');
-// const expenseAmount = document.getElementById('expenseAmount');
-// const expenseList = document.getElementById('expenseList');
-// const totalAmountElement = document.getElementById('totalAmount');
-
-
-// let expenses = [];
-
-
-// function addExpense(event) {
-//   event.preventDefault(); 
- 
-//   const name = expenseName.value;
-//   const amount = parseFloat(expenseAmount.value);
-
-  
-//   if (name.trim() === '' || isNaN(amount)) {
-//     alert('Please enter valid expense details.');
-//     return;
-//   }
-
-
-//   const expense = {
-//     id: Date.now(),
-//     name: name,
-//     amount: amount
-//   };
-
-//   expenses.push(expense);
-
-  
-//   expenseName.value = '';
-//   expenseAmount.value = '';
-
-  
-//   renderExpenses();
-// }
-
-
-// function renderExpenses() {
- 
-//   expenseList.innerHTML = '';
-
-  
-//   let totalAmount = 0;
-
- 
-//   expenses.forEach((expense) => {
-//     const li = document.createElement('li');
-//     li.innerHTML = `
-//       ${expense.name}: $${expense.amount.toFixed(2)}
-//       <button onclick="deleteExpense(${expense.id})">Delete</button>
-//     `;
-//     expenseList.appendChild(li);
-
-  
-//     totalAmount += expense.amount;
-//   });
-
- 
-//   totalAmountElement.textContent = totalAmount.toFixed(2);
-// }
-
-
-// function deleteExpense(id) {
-//   expenses = expenses.filter((expense) => expense.id !== id);
-//   renderExpenses();
-// }
-
-
-// expenseForm.addEventListener('submit', addExpense);
-
-
-// renderExpenses();
