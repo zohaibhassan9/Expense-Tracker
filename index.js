@@ -57,7 +57,7 @@ function updateTotalAmount(){
     totalAmountValue.textContent = totalAmount.toFixed(2);
 
 }
-function deleteExpense(id) {
+function removeExpense(id) {
     expenses = expenses.filter((expense) => expense.id !== id);
     updateExpenseList();
     updateTotalAmount()
