@@ -63,7 +63,6 @@ function deleteExpense(id) {
     updateTotalAmount()
   }
 
-
 expenseForm.addEventListener('submit', addExpense);
 
 
